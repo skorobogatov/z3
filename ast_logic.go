@@ -7,9 +7,11 @@ import (
 // #include "go-z3.h"
 import "C"
 
-// Distinct creates an AST node representing adding.
+// Distinct creates an AST node representing that arguments are pairwise distinct.
 //
 // All AST values must be part of the same context.
+//
+// Maps to: Z3_mk_distinct
 func (a *AST) Distinct(args ...*AST) *AST {
 	raws := make([]C.Z3_ast, len(args)+1)
 	raws[0] = a.rawAST
@@ -49,6 +51,8 @@ func (a *AST) Eq(a2 *AST) *AST {
 // Ite creates an AST node representing if a then a2 else a3.
 //
 // a and a2 must be part of the same Context and be boolean types.
+//
+// Maps to: Z3_mk_ite
 func (a *AST) Ite(a2, a3 *AST) *AST {
 	return &AST{
 		rawCtx: a.rawCtx,
@@ -59,6 +63,8 @@ func (a *AST) Ite(a2, a3 *AST) *AST {
 // Iff creates an AST node representing a iff a2.
 //
 // a and a2 must be part of the same Context and be boolean types.
+//
+// Maps to: Z3_mk_iff
 func (a *AST) Iff(a2 *AST) *AST {
 	return &AST{
 		rawCtx: a.rawCtx,
@@ -69,6 +75,8 @@ func (a *AST) Iff(a2 *AST) *AST {
 // Implies creates an AST node representing a implies a2.
 //
 // a and a2 must be part of the same Context and be boolean types.
+//
+// Maps to: Z3_mk_implies
 func (a *AST) Implies(a2 *AST) *AST {
 	return &AST{
 		rawCtx: a.rawCtx,
@@ -79,6 +87,8 @@ func (a *AST) Implies(a2 *AST) *AST {
 // Xor creates an AST node representing a xor a2.
 //
 // a and a2 must be part of the same Context and be boolean types.
+//
+// Maps to: Z3_mk_xor
 func (a *AST) Xor(a2 *AST) *AST {
 	return &AST{
 		rawCtx: a.rawCtx,
@@ -89,6 +99,8 @@ func (a *AST) Xor(a2 *AST) *AST {
 // And creates an AST node representing a and a2 and ... aN.
 //
 // a and a2 must be part of the same Context and be boolean types.
+//
+// Maps to: Z3_mk_and
 func (a *AST) And(args ...*AST) *AST {
 	raws := make([]C.Z3_ast, len(args)+1)
 	raws[0] = a.rawAST
@@ -108,6 +120,8 @@ func (a *AST) And(args ...*AST) *AST {
 // Or creates an AST node representing a or a2 or ... aN.
 //
 // a and a2 must be part of the same Context and be boolean types.
+//
+// Maps to: Z3_mk_or
 func (a *AST) Or(args ...*AST) *AST {
 	raws := make([]C.Z3_ast, len(args)+1)
 	raws[0] = a.rawAST
