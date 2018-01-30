@@ -43,13 +43,23 @@ func (c *Context) Const(s *Symbol, typ *Sort) *AST {
 	}
 }
 
-// Int creates an integer type.
+// Int creates an integer type that fit in a 32-bit integer.
 //
 // Maps: Z3_mk_int
 func (c *Context) Int(v int, typ *Sort) *AST {
 	return &AST{
 		rawCtx: c.raw,
 		rawAST: C.Z3_mk_int(c.raw, C.int(v), typ.rawSort),
+	}
+}
+
+// Int64 creates an integer type that fit in a 64-bit integer.
+//
+// Maps: Z3_mk_int64
+func (c *Context) Int64(v int64, typ *Sort) *AST {
+	return &AST{
+		rawCtx: c.raw,
+		rawAST: C.Z3_mk_int64(c.raw, C.longlong(v), typ.rawSort),
 	}
 }
 
@@ -78,9 +88,21 @@ func (c *Context) False() *AST {
 //-------------------------------------------------------------------
 
 // Int gets the integer value of this AST. The value must be able to fit
-// into a machine integer.
+// into a 32-bit integer.
+//
+// Maps: Z3_get_numeral_int
 func (a *AST) Int() int {
 	var dst C.int
 	C.Z3_get_numeral_int(a.rawCtx, a.rawAST, &dst)
 	return int(dst)
+}
+
+// Int64 gets the integer value of this AST. The value must be able to fit
+// into a 64-bit integer.
+//
+// Maps: Z3_get_numeral_int64
+func (a *AST) Int64() int64 {
+	var dst C.longlong
+	C.Z3_get_numeral_int64(a.rawCtx, a.rawAST, &dst)
+	return int64(dst)
 }
