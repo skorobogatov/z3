@@ -12,7 +12,7 @@
 package z3
 
 // #cgo CFLAGS: -I Z3Prover/src/api
-// #cgo LDFLAGS: Z3Prover/build/libz3.a -lstdc++ -lm
+// #cgo LDFLAGS: ${SRCDIR}/Z3Prover/build/libz3.a -lstdc++ -lm
 // #include <stdlib.h>
 // #include "go-z3.h"
 import "C"
