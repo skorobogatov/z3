@@ -64,6 +64,26 @@ func (a *AST) Sub(args ...*AST) *AST {
 	}
 }
 
+// Div creates an AST node representing division.
+//
+// Maps to: Z3_mk_div
+func (a *AST) Div(a2 *AST) *AST {
+	return &AST{
+		rawCtx: a.rawCtx,
+		rawAST: C.Z3_mk_div(a.rawCtx, a.rawAST, a2.rawAST),
+	}
+}
+
+// Div creates an AST node representing modulo.
+//
+// Maps to: Z3_mk_mod
+func (a *AST) Mod(a2 *AST) *AST {
+	return &AST{
+		rawCtx: a.rawCtx,
+		rawAST: C.Z3_mk_mod(a.rawCtx, a.rawAST, a2.rawAST),
+	}
+}
+
 // Lt creates a "less than" comparison.
 //
 // Maps to: Z3_mk_lt
@@ -103,3 +123,4 @@ func (a *AST) Ge(a2 *AST) *AST {
 		rawAST: C.Z3_mk_ge(a.rawCtx, a.rawAST, a2.rawAST),
 	}
 }
+
